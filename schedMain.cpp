@@ -106,32 +106,20 @@ int main(int argc, char* argv[])
 
             //Shortest Process Next
             case 2:
-
-
                 // TODO set procIdx to the proper index for the next process to be scheduled using SPN
                 procIdx = ShortProcNext(curTime, procList);
-
-
                 break;
 
             //Shortest Remaining Time
             case 3:
-
-
                 // TODO set procIdx to the proper index for the next process to be scheduled using SRT
                 procIdx = ShortRemTime(curTime, procList);
-
-
                 break;
 
             //Highest Response Ratio Next
             case 4:
-
-
                 // TODO set procIdx to the proper index for the next process to be scheduled using HRRN
                 procIdx = HighRespRatio(curTime, procList);
-
-
                 break;
         }
 

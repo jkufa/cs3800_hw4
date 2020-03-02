@@ -15,14 +15,13 @@ struct Process
     // Given data
     string id;            //The process id
     int startTime;        //The time at which the process becomes available for scheduling (Arrival Time)
-    int totalTimeNeeded;  //The total amount of time needed by the process (Burst Time)
+    int totalTimeNeeded;  //The total amount of time needed by the process (Burst/Service Time)
 
     // Process details
     bool isDone;          //Indicates if the process is complete
     int timeScheduled;    //The amount of time the process has been scheduled so far
     int timeFinished;     //The time that the process completed (Completion Time)
-    int turnaroundTime;    //*Time difference between timeFinished and startTime
-    int waitingTime;       //*Time difference between turnaroundTime and totalTimeNeeded
+    int waitingTime = startTime++;       //*Time difference between turnaroundTime and totalTimeNeeded
 };
 
 

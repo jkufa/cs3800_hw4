@@ -183,5 +183,73 @@ int ShortRemTime(const int& curTime, const vector<Process>& procList)
 
 int HighRespRatio(const int& curTime, const vector<Process>& procList)
 {
-    return 0;
+    static deque<int> ready;  //keeps track of the processes that are ready to be scheduled
+    static deque<double> responseRatios;
+
+    int idx = -1, chk;
+    bool done;
+
+    // first look through the process list and find any processes that are newly ready and
+    // add them to the back of the ready queue
+    for(int i = 0, i_end = procList.size(); i < i_end; ++i)
+    {
+        if(procList[i].startTime == curTime)
+        {
+            ready.push_back(i);
+        }
+    }
+
+    // now take a look the head of the ready queue, and update if needed
+    // (i.e., if we are supposed to schedule now or the process is done)
+    if(procList[ready[0]].isDone)
+    {
+        // the process at the start of the ready queue is being taken off of the
+        // processor
+
+        // if the process isn't done, add it to the back of the ready queue
+        if(!procList[ready[0]].isDone)
+        {
+            ready.push_back(ready[0]);
+        }
+
+        // remove the process from the front of the ready queue and reset the time until
+        // the next scheduling
+        ready.pop_front();
+    }
+
+    //TODO: calculate highest response ratio. HRR = (Waiting time + Service time)/Service time
+    //      Waiting time = curTime - arrival time
+    if(ready.size() > 1)
+    {
+        // need to push process with highest response ratio to top
+        for(int i = 1; i < ready.size(); i++)
+        {
+            double respRatio_0 = curTime - procList[ready[0]].startTime + procList[ready[0]].totalTimeNeeded;
+                   respRatio_0 = respRatio_0/procList[ready[0]].totalTimeNeeded;
+            double respRatio_1 = curTime - procList[ready[i]].startTime + procList[ready[i]].totalTimeNeeded;
+                   respRatio_1 = respRatio_1/procList[ready[i]].totalTimeNeeded;
+            if(respRatio_1 > respRatio_0 && procList[ready[0]].timeScheduled == 0)
+            {
+                ready.push_front(ready[i]);
+                ready.pop_back();
+            }
+        }
+    }
+
+    // if the ready queue has any processes on it
+    if(ready.size() > 0)
+    {
+        // grab the front process and decrement the time to next scheduling
+        idx = ready[0];
+    }
+    // if the ready queue has no processes on it
+    else
+    {
+        // send back an invalid process index and set the time to next scheduling
+        // value so that we try again next time step
+        idx = -1;
+    }
+
+    // return back the index of the process to schedule next
+    return idx;
 }
