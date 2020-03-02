@@ -21,7 +21,6 @@ struct Process
     bool isDone;          //Indicates if the process is complete
     int timeScheduled;    //The amount of time the process has been scheduled so far
     int timeFinished;     //The time that the process completed (Completion Time)
-    int waitingTime = startTime++;       //*Time difference between turnaroundTime and totalTimeNeeded
 };
 
 

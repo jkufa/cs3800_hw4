@@ -136,18 +136,6 @@ int ShortRemTime(const int& curTime, const vector<Process>& procList)
             shortest.push_back(i);
         }
     }
-    if(shortest.size() > 1)
-    {
-        for(int i = 1; i < shortest.size(); i++)
-        {
-            if(procList[shortest[0]].totalTimeNeeded - procList[shortest[0]].timeScheduled 
-                > procList[shortest[i]].totalTimeNeeded - procList[shortest[i]].timeScheduled)
-            {
-                shortest.push_back(shortest[0]);
-                shortest.pop_front();
-            }
-        }
-    }
 
     // update shortest queue if needed
     if(procList[shortest[0]].isDone)
@@ -163,6 +151,19 @@ int ShortRemTime(const int& curTime, const vector<Process>& procList)
 
         // remove the process from the front of the queue
         shortest.pop_front();
+    }
+
+    if(shortest.size() > 1)
+    {
+        for(int i = 1; i < shortest.size(); i++)
+        {
+            if(procList[shortest[0]].totalTimeNeeded - procList[shortest[0]].timeScheduled 
+                > procList[shortest[i]].totalTimeNeeded - procList[shortest[i]].timeScheduled)
+            {
+                shortest.push_front(shortest[i]);
+                shortest.pop_back();
+            }
+        }
     }
 
     // if the shortest queue has any processes on it

@@ -188,11 +188,39 @@ int main(int argc, char* argv[])
     //its done! output the run statistics
     cout << "\n\nRun Statistics:\n";
 
-
-
     //TODO output the requested run stats
 
+    //cout << "Process | Finish Time | Turnaround Time | Normalized Turnaround Time |";
+    const string outputs[] = {"Process", "Finish Time", "Turnaround Time", "Normalized Time"};
+    tempStr = "-----";
+    for(int i = 0; i < 4; ++i)
+    {
+        cout << "| " << outputs[i] << " ";
+        tempStr += "------------";
+    }
+    cout << "\n" << tempStr << "------\n";
+    for(int i =0; i < numProc; i++)
+    {
+        double normalizedTime = procList[i].timeFinished + 1 - procList[i].startTime;
+               normalizedTime = normalizedTime / procList[i].timeScheduled;
+        cout << "|    " << procList[i].id << "    |\t" 
+             << procList[i].timeFinished + 1 << "\t|\t" 
+             << procList[i].timeFinished + 1 - procList[i].startTime << "\t|\t"
+             << normalizedTime << "\t|" << endl;
+    }
 
+
+/*
+Process | Finish Time | Turnaround Time | Normalized Turnaround Time |
+----------------------------------------------------------------------
+      A |           3 |               3 |                       1.00 |
+      B |           9 |               7 |                       1.17 |
+      C |          15 |              11 |                       2.75 |
+      D |          20 |              14 |                       2.80 |
+      E |          11 |               3 |                       1.50 |
+----------------------------------------------------------------------
+   Mean |             |            7.60 |                       1.84 |
+*/
 
     return 0;
 }
