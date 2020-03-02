@@ -59,3 +59,9 @@ int RoundRobin(const int& curTime, const vector<Process>& procList, const int& t
     // return back the index of the process to schedule next
     return idx;
 }
+
+int ShortProcNext(const int& curTime, const vector<Process>& procList, const int& timeQuantum){return 0;}
+
+int ShortRemTime(const int& curTime, const vector<Process>& procList, const int& timeQuantum){return 0;}
+
+int HighRespRatio(const int& curTime, const vector<Process>& procList, const int& timeQuantum){return 0;}
