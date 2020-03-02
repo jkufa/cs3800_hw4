@@ -109,6 +109,7 @@ int main(int argc, char* argv[])
 
 
                 // TODO set procIdx to the proper index for the next process to be scheduled using SPN
+                procIdx = ShortProcNext(curTime, procList);
 
 
                 break;
@@ -118,6 +119,7 @@ int main(int argc, char* argv[])
 
 
                 // TODO set procIdx to the proper index for the next process to be scheduled using SRT
+                procIdx = ShortRemTime(curTime, procList);
 
 
                 break;
@@ -127,6 +129,7 @@ int main(int argc, char* argv[])
 
 
                 // TODO set procIdx to the proper index for the next process to be scheduled using HRRN
+                procIdx = HighRespRatio(curTime, procList);
 
 
                 break;
@@ -200,7 +203,7 @@ int main(int argc, char* argv[])
 
 
     //TODO output the requested run stats
-    
+
 
 
     return 0;
