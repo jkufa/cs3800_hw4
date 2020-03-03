@@ -199,28 +199,29 @@ int main(int argc, char* argv[])
         tempStr += "------------";
     }
     cout << "\n" << tempStr << "------\n";
+
+    double meanTTime = 0, meanNTime = 0;
+
     for(int i =0; i < numProc; i++)
     {
+        int finishTime = procList[i].timeFinished + 1;
+        double turnaroundTime = procList[i].timeFinished + 1 - procList[i].startTime;
         double normalizedTime = procList[i].timeFinished + 1 - procList[i].startTime;
                normalizedTime = normalizedTime / procList[i].timeScheduled;
+
         cout << "|    " << procList[i].id << "    |\t" 
-             << procList[i].timeFinished + 1 << "\t|\t" 
-             << procList[i].timeFinished + 1 - procList[i].startTime << "\t|\t"
+             << finishTime << "\t|\t" 
+             << turnaroundTime << "\t|\t"
              << normalizedTime << "\t|" << endl;
+
+        meanTTime = meanTTime + turnaroundTime;
+        meanNTime = meanNTime + normalizedTime;
     }
+    meanTTime = meanTTime / numProc;
+    meanNTime = meanNTime / numProc;
 
-
-/*
-Process | Finish Time | Turnaround Time | Normalized Turnaround Time |
-----------------------------------------------------------------------
-      A |           3 |               3 |                       1.00 |
-      B |           9 |               7 |                       1.17 |
-      C |          15 |              11 |                       2.75 |
-      D |          20 |              14 |                       2.80 |
-      E |          11 |               3 |                       1.50 |
-----------------------------------------------------------------------
-   Mean |             |            7.60 |                       1.84 |
-*/
+    cout << "\n \t Average Turnaround Time:\t" << meanTTime << endl;
+    cout << "\t Average Normalized Time:\t" << meanNTime << endl;
 
     return 0;
 }
