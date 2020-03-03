@@ -76,7 +76,7 @@ int ShortProcNext(const int& curTime, const vector<Process>& procList)
         }
     }
 
-    // update shortest queue if needed
+    // Remove top process if it has completed
     if(procList[shortest[0]].isDone)
     {
         shortest.pop_front();
@@ -128,7 +128,7 @@ int ShortRemTime(const int& curTime, const vector<Process>& procList)
         }
     }
 
-    // update shortest queue if needed
+    // Remove top process if it has completed
     if(procList[shortest[0]].isDone)
     {
         shortest.pop_front();
