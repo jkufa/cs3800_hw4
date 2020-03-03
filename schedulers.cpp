@@ -189,17 +189,20 @@ int HighRespRatio(const int& curTime, const vector<Process>& procList)
         highestReady.pop_front();
     }
 
-    //Calculates response ratio for top process
-    double respRatio_0 = curTime - procList[highestReady[0]].startTime + procList[highestReady[0]].totalTimeNeeded;
-            respRatio_0 = respRatio_0/procList[highestReady[0]].totalTimeNeeded;
 
     if(highestReady.size() > 1)
     {
         // need to push process with highest response ratio to top
         for(int i = 1; i < highestReady.size(); i++)
         {
+            //Calculates response ratio for top process
+            double respRatio_0 = curTime - procList[highestReady[0]].startTime
+                                        + procList[highestReady[0]].totalTimeNeeded;
+                respRatio_0 = respRatio_0/procList[highestReady[0]].totalTimeNeeded;
+                
             //Calculates response ratio for i process
-            double respRatio_i = curTime - procList[highestReady[i]].startTime + procList[highestReady[i]].totalTimeNeeded;
+            double respRatio_i = curTime - procList[highestReady[i]].startTime
+                                         + procList[highestReady[i]].totalTimeNeeded;
                    respRatio_i = respRatio_i/procList[highestReady[i]].totalTimeNeeded;
 
             // If response ratio i is greater and the top process hasn't started
